@@ -41,7 +41,7 @@ function createMainWindow(): BrowserWindow {
     height: 760,
     minWidth: 900,
     minHeight: 600,
-    title: 'OsxStats',
+    title: 'Helm',
     titleBarStyle: 'hiddenInset',
     backgroundColor: '#0d0e11',
     show: false,
@@ -150,7 +150,7 @@ function buildTrayMenu(): Menu {
     { label: 'Show Dashboard', click: showMainWindow },
     { type: 'separator' },
     {
-      label: 'Quit OsxStats',
+      label: 'Quit Helm',
       accelerator: 'CommandOrControl+Q',
       click: () => app.quit(),
     },
@@ -185,7 +185,7 @@ function createTray(): void {
 
   tray = new Tray(icon);
   tray.setTitle(' …');
-  tray.setToolTip('OsxStats');
+  tray.setToolTip('Helm');
 
   tray.on('click', (event) => {
     if (event.altKey || event.ctrlKey) {

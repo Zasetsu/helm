@@ -9,6 +9,7 @@ import { Network } from './components/Network';
 import { Battery } from './components/Battery';
 import { Sensors } from './components/Sensors';
 import { formatUptime } from './lib/format';
+import iconUrl from './assets/icon.png';
 
 type Tab = 'overview' | 'processes' | 'disk' | 'cache' | 'network' | 'battery' | 'sensors';
 
@@ -44,8 +45,8 @@ export function App(): JSX.Element {
       <aside className="sidebar">
         <div className="drag-spacer" />
         <div className="brand">
-          <span className="brand-mark">OS</span>
-          <span>OsxStats</span>
+          <img className="brand-icon" src={iconUrl} alt="" width={22} height={22} />
+          <span>Helm</span>
         </div>
         <nav>
           {TABS.map((t) => (
@@ -82,7 +83,7 @@ export function App(): JSX.Element {
               )}
             </div>
           )}
-          <button onClick={() => window.api.quit()}>Quit OsxStats</button>
+          <button onClick={() => window.api.quit()}>Quit Helm</button>
         </div>
       </aside>
 

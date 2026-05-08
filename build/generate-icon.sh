@@ -3,13 +3,24 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-SVG="build/icon.svg"
 ICONSET="build/icon.iconset"
 ICNS="build/icon.icns"
-PNG="build/icon.png"
+PNG_OUT="build/icon.png"
 
-if ! command -v rsvg-convert >/dev/null 2>&1; then
-  echo "rsvg-convert is required. Install via: brew install librsvg" >&2
+SOURCE_PNG="build/icon.source.png"
+SVG="build/icon.svg"
+
+if [[ -f "$SOURCE_PNG" ]]; then
+  SOURCE_TYPE=png
+elif [[ -f "$SVG" ]]; then
+  SOURCE_TYPE=svg
+  if ! command -v rsvg-convert >/dev/null 2>&1; then
+    echo "rsvg-convert required for SVG source. Install: brew install librsvg" >&2
+    exit 1
+  fi
+else
+  echo "No icon source found." >&2
+  echo "Drop a 1024x1024 PNG at build/icon.source.png — or keep build/icon.svg." >&2
   exit 1
 fi
 
@@ -29,14 +40,33 @@ declare -a ENTRIES=(
   "1024:icon_512x512@2x.png"
 )
 
+MASTER="$ICONSET/_master.png"
+if [[ "$SOURCE_TYPE" == "png" ]]; then
+  cp "$SOURCE_PNG" "$MASTER"
+  dims=$(sips -g pixelWidth -g pixelHeight "$MASTER" | awk '/pixel/ {print $2}' | paste -sd 'x' -)
+  echo "Source PNG dimensions: $dims"
+  if [[ "$dims" != "1024x1024" ]]; then
+    echo "Warning: source PNG is not 1024x1024. Resizing for icon set, but ideally provide 1024x1024." >&2
+    sips -z 1024 1024 "$MASTER" >/dev/null
+  fi
+else
+  rsvg-convert -w 1024 -h 1024 "$SVG" -o "$MASTER"
+fi
+
 for entry in "${ENTRIES[@]}"; do
   size="${entry%%:*}"
   name="${entry##*:}"
-  rsvg-convert -w "$size" -h "$size" "$SVG" -o "$ICONSET/$name"
+  if [[ "$SOURCE_TYPE" == "svg" ]]; then
+    rsvg-convert -w "$size" -h "$size" "$SVG" -o "$ICONSET/$name"
+  else
+    cp "$MASTER" "$ICONSET/$name"
+    sips -z "$size" "$size" "$ICONSET/$name" >/dev/null
+  fi
 done
 
+cp "$MASTER" "$PNG_OUT"
+rm "$MASTER"
 iconutil -c icns "$ICONSET" -o "$ICNS"
-rsvg-convert -w 1024 -h 1024 "$SVG" -o "$PNG"
 rm -rf "$ICONSET"
 
-echo "Generated: $ICNS, $PNG"
+echo "Generated: $ICNS, $PNG_OUT"

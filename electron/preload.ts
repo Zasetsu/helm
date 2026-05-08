@@ -7,7 +7,7 @@ import type {
   DiskMount,
   DiskScanProgress,
   NetworkSnapshot,
-  OsxStatsApi,
+  HelmApi,
   ProcessDetail,
   SensorReading,
   SystemSnapshot,
@@ -15,7 +15,7 @@ import type {
 
 const DISK_SCAN_UPDATE = 'disk:scanUpdate';
 
-const api: OsxStatsApi = {
+const api: HelmApi = {
   getCpuInfo: () => ipcRenderer.invoke('system:getCpuInfo') as Promise<CpuInfo>,
   getSnapshot: () => ipcRenderer.invoke('system:getSnapshot') as Promise<SystemSnapshot>,
   killProcess: (pid, signal) =>

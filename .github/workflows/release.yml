@@ -58,7 +58,7 @@ jobs:
       - name: Upload artifacts (workflow run)
         uses: actions/upload-artifact@v4
         with:
-          name: osxstats-build
+          name: helm-build
           path: |
             dist/*.dmg
             dist/*.zip

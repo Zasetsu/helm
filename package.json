@@ -1,13 +1,16 @@
 {
-  "name": "osxstats",
+  "name": "helm",
   "version": "0.1.0",
   "description": "Native-feeling macOS system & disk analyzer (CPU, memory, processes, network, battery, sensors, disk usage, cache cleanup).",
   "author": "zasetsu",
   "license": "MIT",
-  "homepage": "https://github.com/zasetsu/OsxStats",
+  "homepage": "https://github.com/Zasetsu/helm",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zasetsu/OsxStats.git"
+    "url": "git+https://github.com/Zasetsu/helm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zasetsu/helm/issues"
   },
   "main": "out/main/index.js",
   "private": true,
@@ -41,8 +44,8 @@
     "vite": "^5.4.8"
   },
   "build": {
-    "appId": "com.zasetsu.osxstats",
-    "productName": "OsxStats",
+    "appId": "com.zasetsu.helm",
+    "productName": "Helm",
     "asar": true,
     "directories": {
       "output": "dist",
@@ -79,7 +82,7 @@
       }
     },
     "dmg": {
-      "title": "OsxStats ${version}",
+      "title": "Helm ${version}",
       "icon": "build/icon.icns",
       "iconSize": 100,
       "window": {

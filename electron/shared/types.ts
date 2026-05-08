@@ -238,7 +238,7 @@ export interface SensorReading {
   errors?: string[];
 }
 
-export interface OsxStatsApi {
+export interface HelmApi {
   getCpuInfo(): Promise<CpuInfo>;
   getSnapshot(): Promise<SystemSnapshot>;
   killProcess(pid: number, signal?: 'SIGTERM' | 'SIGKILL'): Promise<{ ok: boolean; error?: string }>;
@@ -270,6 +270,6 @@ export interface OsxStatsApi {
 
 declare global {
   interface Window {
-    api: OsxStatsApi;
+    api: HelmApi;
   }
 }

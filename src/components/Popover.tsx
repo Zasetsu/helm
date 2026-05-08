@@ -22,7 +22,7 @@ export function Popover(): JSX.Element {
   return (
     <div className="popover-body">
       <div className="popover-header">
-        <span className="title">OsxStats</span>
+        <span className="title">Helm</span>
         <span className="uptime">up {formatUptime(snapshot.uptimeSeconds)}</span>
       </div>
 

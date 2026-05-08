@@ -65,7 +65,7 @@ export function Battery(): JSX.Element {
       <div className="empty">
         <strong>No battery detected.</strong>
         <br />
-        OsxStats only reports battery info on Macs with internal batteries (laptops).
+        Helm only reports battery info on Macs with internal batteries (laptops).
       </div>
     );
   }
