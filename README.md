@@ -6,6 +6,25 @@ Built with Electron + Vite + React + TypeScript. Free, open source, no telemetry
 
 > Status: early beta. Universal binary (Apple Silicon + Intel).
 
+![Helm Overview](docs/screenshots/01-overview.png)
+
+<table>
+  <tr>
+    <td width="50%">
+      <a href="docs/screenshots/02-processes.png">
+        <img src="docs/screenshots/02-processes.png" alt="Processes panel — sortable list with native app icons" />
+      </a>
+      <p align="center"><sub><b>Processes</b> — every running task with its native app icon, sortable by CPU/memory.</sub></p>
+    </td>
+    <td width="50%">
+      <a href="docs/screenshots/03-cache-cleaner.png">
+        <img src="docs/screenshots/03-cache-cleaner.png" alt="Cache Cleaner — 85 GB freeable across 14 known cache locations" />
+      </a>
+      <p align="center"><sub><b>Cache Cleaner</b> — known dev / browser / system caches with safety classifications, one-click cleanup to Trash.</sub></p>
+    </td>
+  </tr>
+</table>
+
 ## Features
 
 - **Overview** — live CPU load with sparkline + per-core list, real macOS memory accounting (`vm_stat`-based: wired + active + compressed = used), top processes by CPU and memory, mounted volumes.
@@ -16,6 +35,7 @@ Built with Electron + Vite + React + TypeScript. Free, open source, no telemetry
 - **Disk** — incremental directory scanning with streaming `du -kx -d 1`. Drill down by clicking folders, breadcrumb navigation, "Reveal in Finder" on double-click. Permission-denied paths skipped automatically.
 - **Cache Cleaner** — 22 known cache locations (Xcode DerivedData, npm/pnpm/yarn/bun, Homebrew, browser caches, Spotify, iOS backups, Trash, Downloads…). Each shows size + safety classification (safe / careful / caution). Items move to Trash (recoverable) except the Trash itself, which is permanently deleted with confirmation.
 - **Menubar tray** — live `CPU% · MEMG` in the menubar title. Click for compact popover with quick stats and top processes. "Dashboard" button opens the full window.
+- **Keyboard shortcuts** — `⌘1` … `⌘7` switch between tabs.
 
 ## Install
 

@@ -40,6 +40,18 @@ export function App(): JSX.Element {
     window.api.getPlatform().then(setPlatform).catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!e.metaKey || e.shiftKey || e.altKey || e.ctrlKey) return;
+      const idx = Number.parseInt(e.key, 10);
+      if (!Number.isFinite(idx) || idx < 1 || idx > TABS.length) return;
+      e.preventDefault();
+      setTab(TABS[idx - 1]!.id);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   return (
     <div className="app">
       <aside className="sidebar">
