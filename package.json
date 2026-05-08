@@ -1,0 +1,104 @@
+{
+  "name": "osxstats",
+  "version": "0.1.0",
+  "description": "Native-feeling macOS system & disk analyzer (CPU, memory, processes, network, battery, sensors, disk usage, cache cleanup).",
+  "author": "zasetsu",
+  "license": "MIT",
+  "homepage": "https://github.com/zasetsu/OsxStats",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zasetsu/OsxStats.git"
+  },
+  "main": "out/main/index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "build:icon": "bash build/generate-icon.sh",
+    "pack:mac": "electron-vite build && electron-builder --mac --dir",
+    "build:mac": "electron-vite build && electron-builder --mac",
+    "release:mac": "electron-vite build && electron-builder --mac --publish never",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "systeminformation": "^5.23.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.7",
+    "electron-vite": "^2.3.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.8"
+  },
+  "build": {
+    "appId": "com.zasetsu.osxstats",
+    "productName": "OsxStats",
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "resources/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "build/icon.icns",
+      "identity": null,
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "extendInfo": {
+        "LSUIElement": false,
+        "NSHumanReadableCopyright": "© 2026 zasetsu. MIT-licensed."
+      }
+    },
+    "dmg": {
+      "title": "OsxStats ${version}",
+      "icon": "build/icon.icns",
+      "iconSize": 100,
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "contents": [
+        {
+          "x": 140,
+          "y": 200,
+          "type": "file"
+        },
+        {
+          "x": 400,
+          "y": 200,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  }
+}
